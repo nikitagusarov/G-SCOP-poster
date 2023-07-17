@@ -1,0 +1,424 @@
+%%-----------------------------------------------------------------
+%% ORIGINAL DISCLAIMER
+%%-----------------------------------------------------------------
+%% 
+%% This is file `tikzposter-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% tikzposter.dtx  (with options: `tikzposter-example.tex')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2014 by Pascal Richter, Elena Botoeva, Richard Barnard, and Dirk Surmann
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 2.0 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% and version 2.0 or later is part of all distributions of
+%% LaTeX version 2013/12/01 or later.
+%% 
+
+%%-----------------------------------------------------------------
+%% MODIFICATION ATTRIBUTION
+%%-----------------------------------------------------------------
+%%
+%% This file was downloaded from: http://www.kamick.org
+%% The ressource provided by Pierre Leamire 
+%% E-mail: pierre.lemaire@grenoble-inp.fr
+%% 
+%% This is a further adaptation of previously defined document.
+%%
+%% Adaptation for .Rmd latex style performed by: Nikita Gusarov
+%% E-mail: nikita.gusarov@univ-grenoble-alpes.fr
+%% 
+
+
+
+%-----------------------------------------------------------------
+% DEFINE DOCUMENT CLASS
+%-----------------------------------------------------------------
+\documentclass[
+  $if(size)$$size$$else$24pt$endif$,
+  $if(paper)$$paper$$else$a0paper$endif$,
+  $if(orientation)$$orientation$$else$portrait$endif$,
+  $if(margin)$$margin$$else$margin=0mm$endif$,
+  $if(innermargin)$$innermargin$$else$innermargin=15mm$endif$,
+  $if(blockverticalspace)$$blockverticalspace$$else$blockverticalspace=15mm$endif$,
+  $if(colspace)$$colspace$$else$colspace=15mm$endif$,
+  $if(subcolspace)$$subcolspace$$else$subcolspace=8mm,$endif$ 
+]{tikzposter} %Default values for poster format options.
+
+
+
+%-----------------------------------------------------------------
+% PACKAGES, COMMANDS AND DEFINITIONS
+%-----------------------------------------------------------------
+\usepackage[$if(inputenc)$$inputenc$$else$utf8$endif$]{inputenc}
+\usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
+\usepackage{amsbsy} % bold math symbols
+\usepackage{kpfonts}
+\usepackage{soul}
+\usepackage{copyrightbox}
+\usepackage{amsmath,amsthm,amssymb,stmaryrd,pifont,wasysym}
+\usepackage{url}
+% \usepackage{hyperref} % hyper references
+% \usefonttheme[onlymath]{serif} % article font style
+
+$if(fontfamily)$
+    \usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$else$
+    % \usepackage{lmodern}
+    \usepackage{helvet}
+$endif$
+\renewcommand{\familydefault}{\sfdefault}
+$if(mainfont)$
+  \setmainfont[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]{$mainfont$}
+$endif$
+$if(sansfont)$
+  \setsansfont[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]{$sansfont$}
+$endif$
+$if(monofont)$
+  \setmonofont[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]{$monofont$}
+$endif$
+$for(fontfamilies)$
+  \newfontfamily{$fontfamilies.name$}[$for(fontfamilies.options)$$fontfamilies.options$$sep$,$endfor$]{$fontfamilies.font$}
+$endfor$
+$if(mathfont)$
+    $if(mathspec)$
+        \ifXeTeX
+            \setmathfont(Digits,Latin,Greek)[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+        \else
+            \setmathfont[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+        \fi
+    $else$
+        \setmathfont[$for(mathfontoptions)$$mathfontoptions$$sep$,$endfor$]{$mathfont$}
+    $endif$
+$endif$
+
+% Floats and graphics
+\usepackage{morefloats}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{graphicx}
+%\usepackage{subcaption}
+%\usepackage{subfigure}
+
+% Pgfplots
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Tikz
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usetikzlibrary{
+  calc,
+  matrix,
+  chains,
+  positioning,
+  decorations.pathreplacing,
+  arrows,shapes,
+  arrows.meta,
+  fit
+}
+\AtBeginEnvironment{tikzpicture}{\tracinglostchars=0\relax}
+
+% Commands
+\newcommand{\bs}{\textbackslash}   % backslash
+\newcommand{\cmd}[1]{{\bf \color{red}#1}}   % highlights command
+\newcommand\subtitle[1]{{\Large\color{subtitlegray}\selectfont
+    \textbf{#1}}}
+
+\definecolor{authorColor}{rgb}{0.6,0.6,0.6}
+\definecolor{subtitlegray}{rgb}{0.3,0.3,0.3}
+
+\def\url#1{\expandafter\string\csname #1\endcsname}
+
+
+
+%-----------------------------------------------------------------
+% DEFINE SETTINGS
+%-----------------------------------------------------------------
+$if(title)$
+  \title{
+    \begin{minipage}{1.5\linewidth}
+      $title$
+    \end{minipage}
+  }
+$endif$
+
+$if(subtitle)$
+  \subtitle{$subtitle$}
+$endif$
+
+$if(author)$
+  \author{
+    \begin{minipage}{1.5\linewidth}
+      $for(author)$$author$$sep$, $endfor$
+    \end{minipage}
+  }
+$endif$
+
+$if(institute)$
+  \institute{$for(institute)$$institute$$sep$ \and $endfor$}
+$endif$
+
+$if(date)$
+  \date{$date$}
+$endif$
+
+
+
+%-----------------------------------------------------------------
+% DEFINE G-SCOP THEMES
+%-----------------------------------------------------------------
+$if(background)$
+    \newcommand\argum{$background$} % defines the title style
+$else$
+    \newcommand\argum{gscop} % defines the title style
+$endif$
+
+\newcommand\condgscop{gscop} % for comparison
+\newcommand\condgscopgael{gscop-gael} % for comparison
+
+\ifx\argum\condgscop
+\definebackgroundstyle{gscop}{
+  \node[above right,inner sep=0pt,outer sep=0pt] at (bottomleft) {\includegraphics[width=\paperwidth,height=\paperheight]{./backgrounds/background_gscop.png}};
+}
+\fi
+\ifx\argum\condgscopgael
+\definebackgroundstyle{gscop}{
+  \node[above right,inner sep=0pt,outer sep=0pt] at (bottomleft) {\includegraphics[width=\paperwidth,height=\paperheight]{./backgrounds/background_gscop-gael.png}};
+}
+\fi
+
+\definetitlestyle{gscop}{%%%%%%%%%%%% CHANGE WIDTH TO REPOSITION TEXT TITLE
+    width=353mm, roundedcorners=0, linewidth=0pt, innersep=8mm,
+    titletotopverticalspace=40mm, titletoblockverticalspace=0mm, titletextscale=1
+}{}
+
+\definecolor{titleBlue}{rgb}{0.0,0.6,0.9}
+\definecolorstyle{gscop} {
+    \definecolor{colorOne}{named}{red}
+    \definecolor{colorTwo}{named}{yellow}
+    \definecolor{colorThree}{named}{cyan}
+}{
+    % Background Colors
+    \colorlet{backgroundcolor}{white}
+    \colorlet{framecolor}{white}
+    % Title Colors
+    \colorlet{titlefgcolor}{titleBlue}
+    \colorlet{titlebgcolor}{white}
+    % Block Colors
+    \colorlet{blocktitlebgcolor}{colorThree}
+    \colorlet{blocktitlefgcolor}{titleBlue}
+    \colorlet{blockbodybgcolor}{white}
+    \colorlet{blockbodyfgcolor}{black!80}
+    % Innerblock Colors
+    \colorlet{innerblocktitlebgcolor}{white}
+    \colorlet{innerblocktitlefgcolor}{black}
+    \colorlet{innerblockbodybgcolor}{colorThree}
+    \colorlet{innerblockbodyfgcolor}{black}
+    % Note colors
+    \colorlet{notefgcolor}{black}
+    \colorlet{notebgcolor}{colorTwo}
+    \colorlet{noteframecolor}{colorTwo}
+}
+
+\defineblockstyle{gscop}{
+    titlewidthscale=1, bodywidthscale=1,titleleft,
+    titleoffsetx=0pt, titleoffsety=5mm, bodyoffsetx=0mm, bodyoffsety=15mm,
+    bodyverticalshift=15mm, roundedcorners=5, linewidth=10pt,
+    titleinnersep=10mm, bodyinnersep=2.2cm
+}{
+    \draw[color=framecolor, fill=blockbodybgcolor,draw=gray!50, line width=1mm, drop shadow] (blockbody.south west)
+    rectangle (blockbody.north east);
+}
+ 
+\definelayouttheme{gscop}{
+    \usecolorstyle{gscop}
+    \usebackgroundstyle{gscop}
+    \usetitlestyle{gscop}
+    \useblockstyle{gscop}
+    %\useinnerblockstyle{sample}%aAvoid unknown type error
+}
+
+
+
+%-----------------------------------------------------------------
+% USE GSCOP THEME
+%-----------------------------------------------------------------
+\usetheme{gscop}
+
+
+
+%-----------------------------------------------------------------
+% COLORED BOXES DEFINITION
+%-----------------------------------------------------------------
+\makeatletter
+\setlength{\TP@visibletextwidth}{\textwidth-10cm}
+\makeatother
+
+\usepackage{tcolorbox}
+
+\newtcolorbox{redbox}[1]{
+  colback=red!5!white,colframe=red!75!black,fonttitle=\bfseries,title={\large #1}
+}{}
+\newtcolorbox{greenbox}[1]{
+  colback=green!5!white,colframe=green!55!black,fonttitle=\bfseries,title={\large #1}
+}
+\newtcolorbox{bluebox}[1]{
+  colback=blue!5!white,colframe=blue!65!black,fonttitle=\bfseries,title={\large #1}
+}
+
+
+
+%-----------------------------------------------------------------
+% BABEL AND LANGUAGES
+%-----------------------------------------------------------------
+
+$if(lang)$
+  \ifLuaTeX
+  \usepackage[bidi=basic]{babel}
+  \else
+  \usepackage[bidi=default]{babel}
+  \fi
+  $if(babel-lang)$
+    \babelprovide[main,import]{$babel-lang$}
+  $endif$
+  $for(babel-otherlangs)$
+    \babelprovide[import]{$babel-otherlangs$}
+  $endfor$
+  % get rid of language-specific shorthands (see #6817):
+  \let\LanguageShortHands\languageshorthands
+  \def\languageshorthands#1{}
+$endif$
+
+
+
+%-----------------------------------------------------------------
+% BIBLIOGRAPHY
+%-----------------------------------------------------------------
+
+\newif\ifbibliography
+
+$if(csl-refs)$
+  \newlength{\cslhangindent}
+  \setlength{\cslhangindent}{1.5em}
+  \newlength{\csllabelwidth}
+  \setlength{\csllabelwidth}{3em}
+  \newlength{\cslentryspacingunit} % times entry-spacing
+  \setlength{\cslentryspacingunit}{\parskip}
+  \newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+  {% don't indent paragraphs
+    \setlength{\parindent}{0pt}
+    % turn on hanging indent if param 1 is 1
+    \ifodd #1
+    \let\oldpar\par
+    \def\par{\hangindent=\cslhangindent\oldpar}
+    \fi
+    % set entry spacing
+    \setlength{\parskip}{#2\cslentryspacingunit}
+  }{}
+  \usepackage{calc}
+  \newcommand{\CSLBlock}[1]{#1\hfill\break}
+  \newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+  \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+  \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+
+$if(natbib)$
+  \usepackage[$natbiboptions$]{natbib}
+  \usepackage{bibentry}
+  \bibliographystyle{$if(biblio-style)$$biblio-style$$else$abbrvnat$endif$}
+$endif$
+
+$if(biblatex)$
+  \usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+  $for(bibliography)$
+    \addbibresource{$bibliography$}
+  $endfor$
+$endif$
+
+$if(nocite-ids)$
+  \nocite{$for(nocite-ids)$$it$$sep$, $endfor$}
+$endif$
+
+
+
+%-----------------------------------------------------------------
+% ADDITIONAL INCLUSIONS
+%-----------------------------------------------------------------
+$if(header-includes)$
+  $for(header-includes)$
+    $header-includes$
+  $endfor$
+$endif$
+
+
+
+%-----------------------------------------------------------------
+% MAIN PART
+%-----------------------------------------------------------------
+\begin{document}
+
+\maketitle 
+
+$if(abstract)$
+  \block[bodyoffsety=4cm]{Abstract}{ 
+    $abstract$
+    \vspace{1cm}
+
+    $if(keywords)$
+    \textbf{Keywords: } $for(keywords)$\textit{$keywords$}$sep$, $endfor$
+    $endif$
+  }
+$elseif(keywords)$
+  \block[bodyoffsety=4cm]{Keywords}{ 
+    $for(keywords)$$keywords$$sep$, $endfor$
+  }
+$endif$
+
+$if(separateref)$
+$else$
+    $if(bibliography)$
+    %\printbibliography[heading=none]
+    \nobibliography{$bibliography$} % use alongside wit \bibentry
+    $endif$
+$endif$
+
+$body$
+
+$if(separateref)$
+  $if(natbib)$
+      $if(bibliography)$
+          \renewcommand\bibname{}
+          \renewcommand\refname{}
+          \block[bodyoffsety=4cm]{$biblio-title$}{
+            \bibliographytrue
+            \bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+          }
+      $endif$
+  $endif$
+  $if(biblatex)$
+    \block[bodyoffsety=4cm]{$biblio-title$}{
+      \bibliographytrue
+      \printbibliography[heading=none]
+    }
+  $endif$
+$endif$
+
+$if(include-after)$
+  $for(include-after)$
+    $include-after$
+  $endfor$
+$endif$
+
+\end{document}
+
+\endinput
