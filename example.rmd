@@ -1,0 +1,87 @@
+---
+size: 22pt # deaults to 24pt
+background: gscop-gael # Available are `gscop-gael` and `gscop`
+title: Title
+author: 
+  - Author 1
+  - Author 2
+abstract: |
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+keywords:
+  - Lorem
+  - Ipsum
+bibliography: bibliography/bibliography.bib
+natbib: true # Use natbib while rendering for \bibentry support
+output: 
+  pdf_document:
+    keep_tex: false
+    template: templates/gscopposter.tex
+---
+
+<!-- ---------------- -->
+<!-- SEPARATE COLUMNS -->
+<!-- ---------------- -->
+\begin{columns}
+
+<!-- FIRST COLUMN -->
+\column{0.5}
+
+\block[bodyoffsety=4cm]{Lorem}{
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  
+  \vspace{0.7cm}
+  \begin{greenbox}{Lorem ipsum 1}
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+  \end{greenbox}
+  
+  \vspace{0.7cm}
+  \begin{redbox}{Lorem ipsum 2}
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  \end{redbox}
+  
+  \vspace{0.7cm}
+  \begin{bluebox}{Lorem ipsum}
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui   officia deserunt mollit anim id est laborum.
+  \end{bluebox}
+}
+
+<!-- SECOND COLUMN -->
+\column{0.5}
+
+\block[bodyoffsety=4cm]{Ipsum}{
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+  
+  \vspace{0.7cm}
+  \begin{enumerate}
+    \item{Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.}
+    \item{Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.}
+  \end{enumerate}
+}
+
+%\block[bodyoffsety=4cm]{Literature}{
+  %\small
+  %%\printbibliography[heading=none]
+  %\nobibliography{publications}
+  %\begin{itemize}
+    %\item{\bibentry{book1}}
+    %\item{\bibentry{book2}}
+  %\end{itemize}
+%}
+
+\end{columns}
+
+
+
+<!-- -------------- -->
+<!-- ENDING SECTION -->
+<!-- -------------- -->
+\block[bodyoffsety=4cm]{Lorem ipsum}{
+  \begin{itemize}
+    \item{\textbf{Test}: \bibentry{misc1}}
+    \item{Something else for test}
+  \end{itemize}
+}
